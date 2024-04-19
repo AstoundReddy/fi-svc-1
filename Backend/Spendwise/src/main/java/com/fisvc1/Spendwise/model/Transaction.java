@@ -1,5 +1,7 @@
 package com.fisvc1.Spendwise.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -10,7 +12,7 @@ import java.time.LocalDate;
 @Table(name = "transaction")
 public class Transaction {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private LocalDate date;
     private Double amount;
@@ -21,5 +23,6 @@ public class Transaction {
     private String description;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 }
