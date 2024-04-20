@@ -28,5 +28,5 @@ export const EDIT_TRANSACTION = {
 };
 export const DELETE_TRANSACTION = {
   method: "DELETE",
-  url: "/transactions/",
+  url: "/transactions",
 };

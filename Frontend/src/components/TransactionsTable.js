@@ -1,65 +1,26 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { set } from "react-hook-form";
+import React, { useState } from "react";
 import { transactionApi } from "../api/transactionApi";
 import { toast } from "react-toastify";
-import { AuthContext } from "../context/AuthContext";
-import ReactSelect from "react-select";
-import ReactSlider from "react-slider";
 import AddTransactionModal from "./Modals/AddTransactionModal";
 import Loading from "../assets/loading2svg.svg";
 
-function TransactionsTable({ startDate, endDate, categories }) {
+function TransactionsTable({ transactions, categories }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   const [selectedTransaction, setSelectedTransaction] = useState();
 
-  const { user } = useContext(AuthContext);
-  const [transactions, setTransactions] = useState([]);
-  const [range, setRange] = useState([0, 10000]);
-  const categoryOptions = categories?.map((category) => ({
-    value: category.id,
-    label: category.name,
-  }));
-
-  const [selectedCategories, setSelectedCategories] = useState([]);
-
-  const handleCategoryChange = (selectedOptions) => {
-    setSelectedCategories(selectedOptions);
-  };
   const handleEdit = (transaction) => {
     setSelectedTransaction(transaction);
     openModal();
-  };
-
-  const fetchUserTransactions = async () => {
-    setIsLoading(true);
-    if (!startDate || !endDate) return;
-    try {
-      const filters = {
-        startDate: startDate.toISOString().split("T")[0],
-        endDate: endDate.toISOString().split("T")[0],
-        categories: selectedCategories?.map((category) => category.value).join(","),
-        minAmount: range[0],
-        maxAmount: range[1],
-      };
-      const response = await transactionApi.getTransactionsByUser(user?.userId, filters);
-      setTransactions(response.data.content);
-    } catch (error) {
-      toast.error(error.response.data);
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   const deleteTransaction = async (transactionId) => {
     setIsLoading(true);
     try {
       await transactionApi.deleteTransaction(transactionId);
-      fetchUserTransactions();
-
-      toast.success("Transaction deleted successfully");
+      toast.success("Transaction deleted successfully, reload to see changes");
     } catch (error) {
       toast.error(error.response.data);
     } finally {
@@ -67,56 +28,15 @@ function TransactionsTable({ startDate, endDate, categories }) {
     }
   };
 
-  useEffect(() => {
-    fetchUserTransactions();
-  }, [startDate, endDate, selectedCategories, range, user?.userId]);
-
   return (
-    <div>
-      <div className="w-full">
-        {isLoading && (
-          <div className="flex justify-center items-center">
-            <img src={Loading} className="w-12" alt="Loading" />
-          </div>
-        )}
-        <AddTransactionModal fetchUserTransactions={fetchUserTransactions} transaction={selectedTransaction} onClose={closeModal} isOpen={isModalOpen} categories={categories} />
-
-        <div className="bg-gray-200 p-4 px-10 rounded-lg shadow-lg mx-auto mt-5 flex w-1/2 justify-between items-center space-x-4">
-          <div className="flex-1 max-w-xs">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Categories</label>
-            <ReactSelect id="categories" options={categoryOptions} isMulti className="basic-multi-select" classNamePrefix="select" value={selectedCategories} onChange={handleCategoryChange} />
-          </div>
-          <div className="flex-1 max-w-sm ">
-            <label className="block uppercase  tracking-wide text-gray-700 text-xs font-bold mb-2">Amount</label>
-            <ReactSlider
-              onChange={(value) => {
-                setRange(value);
-              }}
-              className="w-full bg-gray-700 font-bold h-2 cursor-pointer rounded-full"
-              thumbClassName="absolute  w-2 py-1 h-2 bg-blue-900 rounded-full focus:outline-none"
-              trackClassName=" bg-gray-900 rounded-full"
-              defaultValue={[0, 10000]}
-              max={10000}
-              ariaLabel={["Lower thumb", "Upper thumb"]}
-              ariaValuetext={(state) => `Thumb value ${state.valueNow}`}
-              renderThumb={(props, state) => (
-                <div className="mt-2" {...props}>
-                  {state.valueNow}
-                </div>
-              )}
-              pearling
-              minDistance={10}
-              renderTrack={(props, state) => {
-                let className = "h-2 rounded-full ";
-                className += state.index === 1 ? "bg-blue-500" : "bg-gray-300";
-                return <div {...props} className={className} style={{ ...props.style }} />;
-              }}
-            />
-          </div>
+    <div className="">
+      {isLoading && (
+        <div className="flex justify-center items-center">
+          <img src={Loading} alt="loading" />
         </div>
-      </div>
-
-      <table className="mt-4 w-7xl mx-auto divide-y divide-gray-200">
+      )}
+      <AddTransactionModal categories={categories} isOpen={isModalOpen} onClose={closeModal} transaction={selectedTransaction} />
+      <table className="my-8 rounded p-4 w-7xl mx-auto divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
@@ -124,14 +44,7 @@ function TransactionsTable({ startDate, endDate, categories }) {
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <button onClick={fetchUserTransactions}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
-                  <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
-                </svg>
-              </button>
-            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y font-sans divide-gray-200">
@@ -159,7 +72,7 @@ function TransactionsTable({ startDate, endDate, categories }) {
             ))}
         </tbody>
       </table>
-      {transactions.length === 0 && <div className="text-center font-sans font-bold text-lg mt-10">No transactions found</div>}
+      {transactions?.length === 0 && <div className="text-center text-white font-sans font-bold text-lg mt-10">No transactions found</div>}
     </div>
   );
 }

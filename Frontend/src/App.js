@@ -5,11 +5,10 @@ import { ToastContainer } from "react-toastify";
 import HomePage from "./pages/user/HomePage";
 import Login from "./pages/user/Login";
 import Navbar from "./components/Navbar";
-import AddTransaction from "./pages/user/AddTransaction";
-import Transactions from "./pages/user/Transactions";
-import Categories from "./pages/user/Categories";
+import { useState } from "react";
 
 function App() {
+  const [index, setIndex] = useState(0);
   return (
     <div className="">
       <AuthProvider>
@@ -21,13 +20,11 @@ function App() {
               path="/"
               element={
                 <>
-                  <Navbar />
-                  <div className="py-2"></div>
+                  <Navbar index={index} setIndex={setIndex} />
                   <Outlet />
                 </>
               }>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/transactions" element={<Transactions />} />
+              <Route path="/" element={<HomePage index={index} />} />
             </Route>
           </Routes>
         </Router>

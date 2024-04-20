@@ -34,7 +34,7 @@ function AddTransactionModal({ isOpen, onClose, categories, transaction }) {
       setCategory("");
       setDate("");
       setDescription("");
-      toast.success("Transaction added successfully");
+      toast.success("Transaction added successfully, reload to see changes");
     } catch (error) {
       console.log(error);
       toast.error(error?.response?.data);
@@ -64,7 +64,7 @@ function AddTransactionModal({ isOpen, onClose, categories, transaction }) {
       setCategory("");
       setDate("");
       setDescription("");
-      toast.success("Transaction edited successfully");
+      toast.success("Transaction edited successfully, reload to see changes");
     } catch (error) {
       toast.error(error.response.data);
     } finally {
@@ -93,7 +93,7 @@ function AddTransactionModal({ isOpen, onClose, categories, transaction }) {
       isOpen={isOpen}
       onRequestClose={onClose}
       contentLabel="Add Category"
-      className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl"
+      className="inline-block w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl"
       overlayClassName="fixed inset-0 z-10 overflow-y-auto flex items-center justify-center bg-black bg-opacity-50">
       <div className="space-y-3">
         {isLoading && (

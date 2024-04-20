@@ -1,23 +1,17 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import AddAndDate from "../../components/AddAndDate";
 import Graphs from "./Graphs";
 import { categoryApi } from "../../api/categoryApi";
 import { toast } from "react-toastify";
-function HomePage() {
+import Filters from "../../components/Filters";
+import TransactionsTable from "../../components/TransactionsTable";
+import Loading from "../../assets/loading2svg.svg";
+function HomePage({ index }) {
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [transactions, setTransactions] = useState([]);
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
   const getCategories = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -33,13 +27,23 @@ function HomePage() {
     getCategories();
   }, [getCategories]);
   return (
-    <div className="">
-      <div className="flex flex-row w-full justify-center">
-        <AddAndDate fetchCategories={getCategories} categories={categories} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} />
-      </div>
-      <div>
-        <Graphs categories={categories} startDate={startDate} endDate={endDate} />
-      </div>
+    <div className="bg-gray-900 pt-4 min-h-screen">
+      {isLoading && (
+        <div className="flex justify-center items-center">
+          <img src={Loading} alt="loading" />
+        </div>
+      )}
+      <Filters setTransactions={setTransactions} getCategories={getCategories} categories={categories} />
+
+      {index === 0 ? (
+        <div>
+          <Graphs transactions={transactions} categories={categories} />
+        </div>
+      ) : (
+        <div>
+          <TransactionsTable transactions={transactions} categories={categories} />
+        </div>
+      )}
     </div>
   );
 }

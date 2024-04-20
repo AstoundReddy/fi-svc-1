@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from "recharts";
-import { getRandomColor } from "../helper/getRandomColor";
+import { getColor, getRandomColor } from "../helper/getColor";
 
 function BarGraph({ transactions, categories }) {
   // Prepare data for the chart
@@ -28,7 +28,7 @@ function BarGraph({ transactions, categories }) {
       <BarChart
         className="bg-gray-100 my-10 p-10 rounded-lg shadow-lg"
         width={500}
-        height={300}
+        height={500}
         data={data}
         margin={{
           top: 5,
@@ -41,8 +41,8 @@ function BarGraph({ transactions, categories }) {
         <YAxis />
         <Tooltip />
         <Legend />
-        {categories.map((category) => (
-          <Bar key={category.id} dataKey={category.name} stackId="a" fill={getRandomColor()} />
+        {categories?.map((category, index) => (
+          <Bar key={category.id} dataKey={category.name} stackId="a" fill={getColor(index)} />
         ))}
       </BarChart>
     </div>
