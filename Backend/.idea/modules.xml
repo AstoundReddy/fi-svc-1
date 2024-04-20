@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Spendwise.iml" filepath="$PROJECT_DIR$/.idea/Spendwise.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Backend.iml" filepath="$PROJECT_DIR$/.idea/Backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Spendwise/Spendwise.iml" filepath="$PROJECT_DIR$/Spendwise/Spendwise.iml" />
     </modules>
   </component>
 </project>
