@@ -38,3 +38,7 @@ Once the backend is up, we go to Frontend
 3. The application is up and running on localhost at port 3000
    ```bash
     http://localhost:3000/
+
+### Endpoint Documentation
+1. This is a postman collection of all the designed and used API endpoints: Spendwise.postman_collection.json.
+2. Download the file and import it Postman to test the APIs.
