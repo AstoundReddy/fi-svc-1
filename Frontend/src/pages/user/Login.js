@@ -29,7 +29,8 @@ const Login = () => {
       login(response.data);
       navigate("/");
     } catch (error) {
-      toast.error(error.response.data);
+      console.log(error);
+      toast.error(error?.response?.data);
     } finally {
       setIsLoading(false);
     }

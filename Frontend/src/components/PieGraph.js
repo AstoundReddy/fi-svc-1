@@ -6,7 +6,7 @@ function PieGraph({ transactions, categories }) {
   const data = categories?.map((category) => ({
     id: category.id,
     name: category.name,
-    value: transactions.filter((transaction) => transaction.category.id === category.id).reduce((sum, transaction) => sum + transaction.amount, 0),
+    value: transactions?.filter((transaction) => transaction.category.id === category.id).reduce((sum, transaction) => sum + transaction.amount, 0),
   }));
 
   return (

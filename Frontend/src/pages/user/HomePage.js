@@ -27,13 +27,13 @@ function HomePage({ index }) {
     getCategories();
   }, [getCategories]);
   return (
-    <div className="bg-gray-900 pt-4 min-h-screen">
+    <div className="bg-gray-900 pt-4 h-full">
       {isLoading && (
         <div className="flex justify-center items-center">
-          <img src={Loading} alt="loading" />
+          <img src={Loading} className="w-12" alt="loading" />
         </div>
       )}
-      <Filters setTransactions={setTransactions} getCategories={getCategories} categories={categories} />
+      <Filters index={index} setTransactions={setTransactions} getCategories={getCategories} categories={categories} />
 
       {index === 0 ? (
         <div>

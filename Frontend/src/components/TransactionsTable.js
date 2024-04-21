@@ -29,14 +29,14 @@ function TransactionsTable({ transactions, categories }) {
   };
 
   return (
-    <div className="">
+    <div className="py-8">
       {isLoading && (
         <div className="flex justify-center items-center">
           <img src={Loading} alt="loading" />
         </div>
       )}
       <AddTransactionModal categories={categories} isOpen={isModalOpen} onClose={closeModal} transaction={selectedTransaction} />
-      <table className="my-8 rounded p-4 w-7xl mx-auto divide-y divide-gray-200">
+      <table className=" rounded p-4 w-7xl mx-auto divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>

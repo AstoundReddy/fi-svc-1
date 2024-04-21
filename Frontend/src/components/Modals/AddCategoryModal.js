@@ -18,6 +18,8 @@ function AddCategoryModal({ isOpen, onClose, fetchCategories }) {
         name,
       });
       fetchCategories();
+      toast.success("Category added successfully");
+      setName("");
       onClose();
     } catch (error) {
       console.log(error.response);

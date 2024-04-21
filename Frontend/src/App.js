@@ -11,9 +11,9 @@ function App() {
   const [index, setIndex] = useState(0);
   return (
     <div className="">
-      <AuthProvider>
-        <ToastContainer />
-        <Router>
+      <Router>
+        <AuthProvider>
+          <ToastContainer />
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route
@@ -27,8 +27,8 @@ function App() {
               <Route path="/" element={<HomePage index={index} />} />
             </Route>
           </Routes>
-        </Router>
-      </AuthProvider>
+        </AuthProvider>
+      </Router>
     </div>
   );
 }

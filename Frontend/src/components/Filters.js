@@ -7,9 +7,9 @@ import { AuthContext } from "../context/AuthContext";
 import ReactSlider from "react-slider";
 import Loading from "../assets/loading2svg.svg";
 import AddTransactionModal from "./Modals/AddTransactionModal";
-import AddCategoryModal from "./Modals/AddCategoryModal";
 import "react-datepicker/dist/react-datepicker.css";
-function Filters({ categories, setTransactions, getCategories }) {
+import AddCategoryModal from "./Modals/AddCategoryModal";
+function Filters({ index, categories, setTransactions, getCategories }) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [range, setRange] = useState([0, 10000]);
