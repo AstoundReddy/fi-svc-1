@@ -140,6 +140,9 @@ const Login = () => {
                 </div>
 
                 <div className="relative">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+                    Password
+                  </label>
                   <input
                     id="password"
                     {...register("password", {
@@ -153,20 +156,6 @@ const Login = () => {
                     autoComplete="current-password"
                     className="block w-full px-3 py-2 mt-1 text-black bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
                   />
-                  <button onClick={() => setShowPassword(!showPassword)} type="button" className=" inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
-                    {showPassword ? (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" className="bi bi-eye-fill" viewBox="0 0 16 16">
-                        <path d="M16 8s-3 5.5-8 5.5S0 8 0 8s3-5.5 8-5.5S16 8 16 8zm-8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-                      </svg>
-                    ) : (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" className="bi bi-eye-slash-fill" viewBox="0 0 16 16">
-                        <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l1.61 1.61A3.5 3.5 0 0 1 8 10.5c.747 0 1.444-.242 2.016-.675l3.343 3.343A7 7 0 0 0 16 8zM1.64 2.936l2.062 2.062A3.5 3.5 0 0 0 8 3.5c.747 0 1.444.242 2.016.675l1.614 1.614A3.5 3.5 0 0 1 8 9.5a3.5 3.5 0 0 1-2.016-.675l-3.343-3.343A7 7 0 0 0 0 8c0 0 3 5.5 8 5.5a7 7 0 0 0 2.79-.588L1.64 2.936zM5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829z" />
-                        <path d="M13.82 12.062 12 10.242 14.062 8 12 5.757l2-2L16 5.8z" />
-                        <path d="M11.1 9.1l1.4 1.4c.045-.139.07-.29.07-.45a1.5 1.5 0 1 0-1.47 1.05z" />
-                      </svg>
-                    )}
-                  </button>
                 </div>
                 {errors.password && <p className="text-red-500 text-xs font-semibold">{errors.password.message}</p>}
               </>
