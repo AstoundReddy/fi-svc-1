@@ -8,7 +8,7 @@
 ### Installation
 1. **Download the `.jar` File**: Click on the following link to download the `.jar` file:
 
-   [Download Application](https://iitkgpacin-my.sharepoint.com/:u:/g/personal/aryachandanreddy_iitkgp_ac_in/EZtOLKVtgzhAptdX-Wl2BEUBV62GXBX3GOC4pHp04UWuZA?e=tK2tba)
+   [Download Application](https://iitkgpacin-my.sharepoint.com/:f:/g/personal/aryachandanreddy_iitkgp_ac_in/Ej6hQjbdrdxGglw3sTy3zZcBRAUCZq6-4CUcf7OdQdbOqw?e=lpUOrz)
 
 2. **Save the File**: Save the file to a convenient location on your machine, such as your desktop or a dedicated folder.
 
@@ -154,6 +154,8 @@ This is the most important API of all that took the longest to design
   - **categories**: Comma-separated category IDs to filter transactions
   - **minAmount**: Minimum amount for filtering transactions
   - **maxAmount**: Maximum amount for filtering transactions
+  - **size**: Number of transactions to be fetched in the page
+  - **page**: Page number
 - **Example URL with Parameters**: http://localhost:5000/transactions/user/1?startDate=2023-03-01&endDate=2023-03-09&categories=4,5&minAmount=250&maxAmount=260
 - **Responses**: A list of filtered transactions based on the provided criteria or error messages.
 
